@@ -1,0 +1,21 @@
+[package]
+name = "crayon-cli"
+version = "0.5.0"
+authors = ["maojingkai <oammix@gmail.com>"]
+
+[dependencies]
+crayon = { git = "https://github.com/shawnscode/crayon" }
+crayon-3d = { git = "https://github.com/shawnscode/crayon" }
+env_logger = "0.5.12"
+
+failure = "0.1.1"
+clap = "2.32.0"
+
+serde = { version = "1.0.70", features = ["serde_derive"] }
+serde_json = "1.0.24"
+toml = "0.4.6"
+
+byteorder = "1.2.4"
+crc = "1.8.1"
+uuid = { version = "0.6.5", features = ["v4", "serde"] }
+walkdir = "2.2.0"
