@@ -7,7 +7,7 @@ Various command line tools for [crayon](https://github.com/shawnscode/crayon).
 Its easy to setup `crayon-cli` in your environments by following steps below:
 
 ``` sh
-git clone git@github.com:shawnscod/crayon-tools.git && make
+git clone git@github.com:shawnscode/crayon-tools.git && make
 ```
 
 ### Workspace
