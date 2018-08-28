@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs;
 use std::io::Write;
 use std::path::{Path, PathBuf};
@@ -23,7 +23,7 @@ pub struct AssetDatabase {
     resources_dir: PathBuf,
     platform: RuntimePlatform,
     cache: AssetCache,
-    assets: HashMap<PathBuf, AssetMetadata>,
+    assets: BTreeMap<PathBuf, AssetMetadata>,
     exts: HashMap<String, AssetType>,
     importers: HashMap<AssetType, Box<AssetImporter>>,
 }
@@ -60,7 +60,7 @@ impl AssetDatabase {
             resources_dir: resources_dir,
             platform: platform,
             cache: cache,
-            assets: HashMap::new(),
+            assets: BTreeMap::new(),
             exts: HashMap::new(),
             importers: HashMap::new(),
         };
