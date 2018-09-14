@@ -4,7 +4,7 @@ use std::io::Write;
 use std::path::{Path, PathBuf};
 
 use crayon::bincode;
-use crayon::res::manifest::{self, Manifest, ManifestItem};
+use crayon::res::vfs::manifest::{self, Manifest, ManifestItem};
 use failure::ResultExt;
 use uuid::Uuid;
 use walkdir::WalkDir;
@@ -122,7 +122,8 @@ impl AssetDatabase {
 
                     fs::copy(&src, &dst)?;
                     manifest.items.push(ManifestItem {
-                        location: location.into(),
+                        filename: manifest.buf.extend_from_str(location.to_str().unwrap()),
+                        dependencies: manifest.buf.extend_from_slice(&[]),
                         uuid: r.uuid,
                     });
                 } else {
@@ -232,7 +233,8 @@ impl AssetDatabase {
         importers: &'a HashMap<AssetType, Box<AssetImporter>>,
         name: T,
     ) -> Option<&'a AssetImporter> {
-        let tp = name.as_ref()
+        let tp = name
+            .as_ref()
             .extension()
             .and_then(|e| e.to_str())
             .and_then(|e| exts.get(e))

@@ -1,6 +1,6 @@
 [package]
 name = "crayon-cli"
-version = "0.5.0"
+version = "0.6.0"
 authors = ["maojingkai <oammix@gmail.com>"]
 
 [dependencies]
@@ -19,3 +19,5 @@ byteorder = "1.2.4"
 crc = "1.8.1"
 uuid = { version = "0.6.5", features = ["v4", "serde"] }
 walkdir = "2.2.0"
+
+vorbis = "0.1.0"
