@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate crayon;
 extern crate crayon_3d;
+extern crate crayon_audio;
 #[macro_use]
 extern crate failure;
 extern crate env_logger;
@@ -16,6 +17,12 @@ extern crate uuid;
 extern crate walkdir;
 
 extern crate clap;
+
+// Audio formats
+extern crate claxon;
+extern crate hound;
+extern crate minimp3;
+extern crate vorbis;
 
 pub mod assets;
 pub mod platform;
@@ -42,8 +49,7 @@ fn main() -> Result<()> {
                         .help("Sets the root path of workspace.")
                         .takes_value(true),
                 ),
-        )
-        .get_matches();
+        ).get_matches();
 
     if let Some(matches) = matches.subcommand_matches("build") {
         return cmd_build(matches);

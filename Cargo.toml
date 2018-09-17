@@ -4,8 +4,13 @@ version = "0.6.0"
 authors = ["maojingkai <oammix@gmail.com>"]
 
 [dependencies]
-crayon = { git = "https://github.com/shawnscode/crayon" }
-crayon-3d = { git = "https://github.com/shawnscode/crayon" }
+# crayon = { git = "https://github.com/shawnscode/crayon" }
+# crayon-3d = { git = "https://github.com/shawnscode/crayon" }
+# crayon-audio = { git = "https://github.com/shawnscode/crayon" }
+crayon = { path = "../crayon" }
+crayon-3d = { path = "../crayon/modules/3d" }
+crayon-audio = { path = "../crayon/modules/audio" }
+
 env_logger = "0.5.12"
 
 failure = "0.1.1"
@@ -21,3 +26,6 @@ uuid = { version = "0.6.5", features = ["v4", "serde"] }
 walkdir = "2.2.0"
 
 vorbis = "0.1.0"
+claxon = "0.4.1"
+hound = "3.4.0"
+minimp3 = "0.3.0"

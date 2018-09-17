@@ -27,7 +27,11 @@ extensions = ['.png', '.jpg', '.jpeg', '.bmp', '.tga', '.psd'] # Yes, we do supp
 
 [[assets.importers]]
 type = 'Transmission'
-extensions = ['.obj', '.blend', '.fbx', '.gltf', '.dae', '.3ds' ]
+extensions = ['.obj', '.blend', '.fbx', '.gltf', '.dae', '.3ds']
+
+[[assets.importers]]
+type = 'Audio'
+extensions = ['.mp3', '.wav', '.ogg', '.flac']
 ```
 
 ## Assets Workflow

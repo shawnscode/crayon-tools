@@ -76,6 +76,9 @@ impl AssetDatabase {
         let bi = BytesImporter {};
         database.importers.insert(AssetType::Bytes, Box::new(bi));
 
+        let ai = AudioImporter {};
+        database.importers.insert(AssetType::Audio, Box::new(ai));
+
         for v in params.importers {
             for e in v.extensions {
                 let ext = e.trim_left_matches('.');

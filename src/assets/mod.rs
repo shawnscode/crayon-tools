@@ -7,6 +7,9 @@ pub use self::transmission::{MeshImportParams, TransmissionImportParams, Transmi
 pub mod bytes;
 pub use self::bytes::BytesImporter;
 
+pub mod audio;
+pub use self::audio::{AudioImportParams, AudioImporter};
+
 use workspace::database::{AssetIntermediateGenerator, AssetMetadataGenerator};
 
 pub type Result<T> = ::std::result::Result<T, ::failure::Error>;
@@ -16,6 +19,7 @@ pub enum AssetType {
     Texture,
     Transmission,
     Bytes,
+    Audio,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -24,6 +28,7 @@ pub enum ResourceType {
     Prefab,
     Mesh,
     Bytes,
+    AudioClip,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
@@ -32,6 +37,7 @@ pub enum AssetParams {
     Bytes,
     Texture(TextureImportParams),
     Transmission(TransmissionImportParams),
+    Audio(AudioImportParams),
 }
 
 pub trait AssetImporter {
