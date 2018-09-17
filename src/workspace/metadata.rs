@@ -45,6 +45,17 @@ impl AssetMetadata {
             let bytes = fs::read(&metafile).unwrap();
             match toml::de::from_slice::<AssetMetadata>(&bytes) {
                 Ok(mut metadata) => {
+                    let name = filename.to_owned();
+                    if name != metadata.name {
+                        for v in &mut metadata.resources {
+                            if v.name == metadata.name {
+                                v.name = name.clone();
+                            }
+                        }
+
+                        metadata.name = name;
+                    }
+
                     metadata.name = filename.to_owned();
                     return Ok(metadata);
                 }
