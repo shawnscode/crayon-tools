@@ -68,7 +68,8 @@ impl AssetCache {
     fn scan(&mut self) -> Result<()> {
         for (n, v) in &mut self.assets {
             v.file.check_file(&self.assets_dir, n, self.strict)?;
-            v.metafile.check_metafile(&self.assets_dir, n, self.strict)?;
+            v.metafile
+                .check_metafile(&self.assets_dir, n, self.strict)?;
 
             for (k, metadata) in &mut v.intermediates {
                 metadata.check_intermediate(&self.dir, k, self.strict)?;
@@ -139,7 +140,8 @@ impl AssetCache {
             }
 
             if v.metafile.modified {
-                v.metafile.check_metafile(&self.assets_dir, n, self.strict)?;
+                v.metafile
+                    .check_metafile(&self.assets_dir, n, self.strict)?;
             }
 
             for (k, metadata) in &mut v.intermediates {
@@ -202,7 +204,8 @@ impl AssetCache {
     {
         let name = utils::canonicalize(name.as_ref());
         let item = self.item(filename);
-        let metadata = item.intermediates
+        let metadata = item
+            .intermediates
             .entry(name)
             .or_insert_with(|| Metadata::new(Uuid::new_v4()));
 
@@ -220,7 +223,8 @@ impl AssetCache {
     {
         let name = utils::canonicalize(name.as_ref());
         let item = self.item(filename);
-        let metadata = item.resources
+        let metadata = item
+            .resources
             .entry(name)
             .or_insert_with(|| Metadata::new(Uuid::new_v4()));
 
@@ -263,7 +267,7 @@ impl Metadata {
     }
 
     pub fn path(&self, dir: &Path) -> PathBuf {
-        dir.join(format!("{:X}", self.uuid.simple()))
+        dir.join(format!("{:X}", self.uuid.to_simple()))
     }
 
     pub fn path_with_extension(&self, dir: &Path, filename: &Path) -> PathBuf {

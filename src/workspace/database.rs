@@ -114,7 +114,7 @@ impl AssetDatabase {
             for r in &v.resources {
                 let cmd = self.cache.resource(k, &r.name, false);
                 let src = cmd.path(self.cache.dir());
-                let dst = self.resources_dir.join(format!("{:X}", r.uuid.simple()));
+                let dst = self.resources_dir.join(format!("{:X}", r.uuid.to_simple()));
 
                 if src.exists() {
                     let location = if k == &r.name {
@@ -311,7 +311,7 @@ impl<'a> AssetMetadataGenerator<'a> {
     pub fn intermediate<T: AsRef<Path>>(&mut self, name: T, modified: bool) -> PathBuf {
         let name = name.as_ref();
         let md = self.cache.intermediate(&self.metadata.name, name, modified);
-        let mut path = self.cache.dir().join(format!("{:X}", md.uuid.simple()));
+        let mut path = self.cache.dir().join(format!("{:X}", md.uuid.to_simple()));
         if let Some(extension) = name.extension() {
             path = path.with_extension(extension);
         }
@@ -380,7 +380,7 @@ impl<'a> AssetIntermediateGenerator<'a> {
     pub fn intermediate<T: AsRef<Path>>(&mut self, name: T, modified: bool) -> PathBuf {
         let name = name.as_ref();
         let md = self.cache.intermediate(&self.metadata.name, name, modified);
-        let mut path = self.cache.dir().join(format!("{:X}", md.uuid.simple()));
+        let mut path = self.cache.dir().join(format!("{:X}", md.uuid.to_simple()));
         if let Some(extension) = name.extension() {
             path = path.with_extension(extension);
         }
@@ -400,6 +400,6 @@ impl<'a> AssetIntermediateGenerator<'a> {
     pub fn resource<T: AsRef<Path>>(&mut self, name: T, modified: bool) -> PathBuf {
         let name = name.as_ref();
         let md = self.cache.resource(&self.metadata.name, name, modified);
-        self.cache.dir().join(format!("{:X}", md.uuid.simple()))
+        self.cache.dir().join(format!("{:X}", md.uuid.to_simple()))
     }
 }
