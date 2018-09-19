@@ -32,12 +32,12 @@ install: build
 	cp $(ASSIMP) $(DESTDIR)/$(PACKAGE)/utilities/assimp
 	cp $(CRUNCH) $(DESTDIR)/$(PACKAGE)/utilities/crunch
 	cp $(PVRTEX) $(DESTDIR)/$(PACKAGE)/utilities/PVRTexToolCLI
-	cp target/debug/crayon-cli $(DESTDIR)/$(PACKAGE)/crayon-cli
+	cp target/release/crayon-cli $(DESTDIR)/$(PACKAGE)/crayon-cli
 
 	ln -sf $(PWD$)/$(DESTDIR)/$(PACKAGE)/crayon-cli $(SYSMBOL_PATH)/crayon-cli
 
 build:
-	cargo --color always build
+	cargo --color always build --release
 
 uninstall:
 	rm -rf $(DESTDIR)/$(PACKAGE)

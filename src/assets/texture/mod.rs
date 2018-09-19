@@ -89,7 +89,6 @@ impl AssetImporter for TextureImporter {
         file.write_all(&texture_loader::MAGIC)?;
         bincode::serialize_into(&mut file, &tex)?;
         bincode::serialize_into(&mut file, &data)?;
-
         Ok(())
     }
 }
@@ -143,6 +142,7 @@ impl TextureImporter {
         cmd.arg("-rescalemode nearest");
         cmd.arg("-yflip");
         cmd.arg("-mipMode None");
+        cmd.arg("-A8R8G8B8");
 
         let output = cmd.output().expect("Texture compiler not found.");
         if !output.status.success() {
@@ -161,12 +161,12 @@ impl TextureImporter {
         let mut cmd = match format {
             TextureFormat::S3tcDxt1RGB4BPP => {
                 let mut cmd = Self::crunch_compress(src, dst, params);
-                cmd.arg("-dxt1");
+                cmd.arg("-DXT1");
                 cmd
             }
             TextureFormat::S3tcDxt5RGBA8BPP => {
                 let mut cmd = Self::crunch_compress(src, dst, params);
-                cmd.arg("-dxt5");
+                cmd.arg("-DXT5");
                 cmd
             }
             TextureFormat::Etc2RGB4BPP => {
