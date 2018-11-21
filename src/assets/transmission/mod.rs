@@ -10,8 +10,9 @@ use std::process::Command;
 
 use crayon::bincode;
 use crayon::video::assets::mesh_loader;
-use crayon_3d::assets::prefab::Prefab;
-use crayon_3d::assets::prefab_loader;
+
+use crayon_world::assets::prefab::Prefab;
+use crayon_world::assets::prefab_loader;
 
 use super::{AssetImporter, AssetParams, ResourceType};
 

@@ -1,7 +1,8 @@
 #[macro_use]
 extern crate crayon;
-extern crate crayon_3d;
 extern crate crayon_audio;
+extern crate crayon_world;
+
 #[macro_use]
 extern crate failure;
 extern crate env_logger;

@@ -4,7 +4,7 @@ use std::io::Write;
 use std::path::{Path, PathBuf};
 
 use crayon::bincode;
-use crayon::res::vfs::manifest::{self, Manifest, ManifestItem};
+use crayon::res::manifest::{self, Manifest, ManifestItem};
 use failure::ResultExt;
 use uuid::Uuid;
 use walkdir::WalkDir;

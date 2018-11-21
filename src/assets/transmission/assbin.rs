@@ -2,12 +2,12 @@ use std::io::{Read, Seek, SeekFrom, Write};
 
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use crayon::errors::*;
-use crayon::math;
+use crayon::math::prelude::*;
 use crayon::video::assets::mesh::*;
 use crayon::video::assets::shader::Attribute;
 
-use crayon_3d::assets::prefab::PrefabNode;
-use crayon_3d::scene::Transform;
+use crayon_world::assets::prefab::PrefabNode;
+use crayon_world::prelude::Transform;
 
 const ASSBIN_CHUNK_AISCENE: u32 = 0x1239;
 const ASSBIN_CHUNK_AINODE: u32 = 0x123c;
@@ -231,7 +231,7 @@ impl Assbin {
         buf.resize(num_vertices, AssbinVertex::default());
 
         let mut layout = VertexLayout::build();
-        let mut aabb = math::Aabb3::zero();
+        let mut aabb = Aabb3::zero();
 
         let attributes = file.read_u32::<LittleEndian>()?;
         if (attributes & ASSBIN_MESH_HAS_POSITIONS) != 0 {

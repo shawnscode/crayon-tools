@@ -65,8 +65,6 @@ impl AssetImporter for TextureImporter {
             return Ok(());
         }
 
-        info!("Imports resource {}.", name.display());
-
         let params: TextureImportParams = db.params().into();
         let format = params.format(db.platform());
 
@@ -79,6 +77,12 @@ impl AssetImporter for TextureImporter {
         tex.filter = params.filter;
         tex.wrap = params.wrap;
         tex.format = format;
+
+        info!(
+            "Imports resource {}.  Size: {:?}.",
+            name.display(),
+            ktx.textures.iter().map(|v| v.len()).collect::<Vec<_>>()
+        );
 
         //
         let data = TextureData {
