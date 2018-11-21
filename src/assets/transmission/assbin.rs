@@ -166,7 +166,11 @@ impl Assbin {
         let chunk_size = file.read_u32::<LittleEndian>()?;
         let chunk_cursor = file.seek(SeekFrom::Current(0))?;
 
-        let name = Assbin::read_str(file)?;
+        let mut name = Assbin::read_str(file)?;
+        if let Some(index) = name.find("_$AssimpFbx$_") {
+            name.truncate(index);
+        }
+
         let local_transform = Assbin::read_transform(file)?;
         let num_children = file.read_u32::<LittleEndian>()?;
         let num_meshes = file.read_u32::<LittleEndian>()?;
@@ -275,11 +279,11 @@ impl Assbin {
                 _ => {}
             }
 
-            for _ in 0..num_vertices {
+            for j in 0..num_vertices {
                 let v = Assbin::read_vec4(&mut file)?;
                 match i {
-                    0 => buf[i].color0 = v,
-                    1 => buf[i].color1 = v,
+                    0 => buf[j].color0 = v,
+                    1 => buf[j].color1 = v,
                     _ => {}
                 }
             }
@@ -298,13 +302,13 @@ impl Assbin {
                 _ => {}
             }
 
-            for _ in 0..num_vertices {
+            for j in 0..num_vertices {
                 let v = Assbin::read_vec3(&mut file)?;
                 match i {
-                    0 => buf[i].texcoord0 = [v[0], v[1]],
-                    1 => buf[i].texcoord1 = [v[0], v[1]],
-                    2 => buf[i].texcoord2 = [v[0], v[1]],
-                    3 => buf[i].texcoord3 = [v[0], v[1]],
+                    0 => buf[j].texcoord0 = [v[1], v[2]],
+                    1 => buf[j].texcoord1 = [v[1], v[2]],
+                    2 => buf[j].texcoord2 = [v[1], v[2]],
+                    3 => buf[j].texcoord3 = [v[1], v[2]],
                     _ => {}
                 }
             }
