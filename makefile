@@ -18,6 +18,13 @@ ifeq ($(SYSTEM),Darwin)
 	SYSMBOL_PATH := /usr/local/bin
 endif
 
+ifeq ($(SYSTEM),Linux)
+	ASSIMP := utilities/assimp/bin_linux/assimp
+	CRUNCH := utilities/crunch/bin_linux/crunch
+	PVRTEX := utilities/PVRTexTool/CLI/linux/PVRTexToolCLI
+	SYSMBOL_PATH := /usr/local/bin
+endif
+
 ifndef DESTDIR
     $(warning DESTDIR is undefined)
 	DESTDIR := target
@@ -30,11 +37,11 @@ install: build
 	mkdir -p $(DESTDIR)/$(PACKAGE)/utilities
 
 	cp $(ASSIMP) $(DESTDIR)/$(PACKAGE)/utilities/assimp
-	cp $(CRUNCH) $(DESTDIR)/$(PACKAGE)/utilities/crunch
+	cp -r $(CRUNCH) $(DESTDIR)/$(PACKAGE)/utilities/crunch
 	cp $(PVRTEX) $(DESTDIR)/$(PACKAGE)/utilities/PVRTexToolCLI
 	cp target/release/crayon-cli $(DESTDIR)/$(PACKAGE)/crayon-cli
 
-	ln -sf $(PWD$)/$(DESTDIR)/$(PACKAGE)/crayon-cli $(SYSMBOL_PATH)/crayon-cli
+	sudo ln -sf $(PWD$)/$(DESTDIR)/$(PACKAGE)/crayon-cli $(SYSMBOL_PATH)/crayon-cli
 
 build:
 	cargo --color always build --release
