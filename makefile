@@ -8,7 +8,12 @@ else
 endif
 
 ifeq ($(SYSTEM),Windows)
-	$(error Windows supports is not implemented yet.)
+	ASSIMP := utilities\assimp\bin_x64
+	CRUNCH := utilities\crunch\bin_mingw\crunch
+	PVRTEX := utilities\PVRTexTool\CLI\Windows_x86_64\PVRTexToolCLI.exe
+$(shell mkdir "C:\Users\admin\crayon-cli")
+	PWD := $(shell chd)
+	SYSMBOL_PATH := "C:\Users\admin"
 endif
 
 ifeq ($(SYSTEM),Darwin)
@@ -33,16 +38,23 @@ endif
 all: install
 
 install: build
-	mkdir -p $(DESTDIR)/$(PACKAGE)
-	mkdir -p $(DESTDIR)/$(PACKAGE)/utilities
-
-	cp $(ASSIMP) $(DESTDIR)/$(PACKAGE)/utilities/assimp
-	cp -r $(CRUNCH) $(DESTDIR)/$(PACKAGE)/utilities/crunch
-	cp $(PVRTEX) $(DESTDIR)/$(PACKAGE)/utilities/PVRTexToolCLI
-	cp target/release/crayon-cli $(DESTDIR)/$(PACKAGE)/crayon-cli
-
-	sudo ln -sf $(PWD$)/$(DESTDIR)/$(PACKAGE)/crayon-cli $(SYSMBOL_PATH)/crayon-cli
-
+	ifeq ($(SYSTEM),Windows)
+	$(shell mkdir $(DESTDIR)\$(PACKAGE))
+	$(shell mkdir $(DESTDIR)\$(PACKAGE)\utilities)
+	$(shell Xcopy /Y $(ASSIMP) $(DESTDIR)\$(PACKAGE)\utilities )
+	$(shell Xcopy /Y $(CRUNCH) $(DESTDIR)\$(PACKAGE)\utilities\CRUNCH )
+	$(shell Xcopy /Y $(PVRTEX) $(DESTDIR)\$(PACKAGE)\utilities\PVRTexToolCLI )
+	$(shell Xcopy /Y target\release\crayon-cli $(DESTDIR)\$(PACKAGE)\crayon-cli )
+	$(shell mklink $(PWD$)\$(DESTDIR)\$(PACKAGE)\crayon-cli $(SYSMBOL_PATH))
+	else
+		mkdir -p $(DESTDIR)/$(PACKAGE)
+		mkdir -p $(DESTDIR)/$(PACKAGE)/utilities
+		cp $(ASSIMP) $(DESTDIR)/$(PACKAGE)/utilities/assimp
+		cp -r $(CRUNCH) $(DESTDIR)/$(PACKAGE)/utilities/crunch
+		cp $(PVRTEX) $(DESTDIR)/$(PACKAGE)/utilities/PVRTexToolCLI
+		cp target/release/crayon-cli $(DESTDIR)/$(PACKAGE)/crayon-cli
+		sudo ln -sf $(PWD$)/$(DESTDIR)/$(PACKAGE)/crayon-cli $(SYSMBOL_PATH)/crayon-cli
+	endif
 build:
 	cargo --color always build --release
 

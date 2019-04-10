@@ -13,7 +13,7 @@ git clone git@github.com:shawnscode/crayon-tools.git && make
 ### Workspace
 
 We are using a simple `workspace.toml` file to configurate the workspace settings. Here is a minimal version of it:
-
+cmd /K "assimp.exe" --version
 ```toml
 [assets]
 source = 'assets' # the path to assets folder..
