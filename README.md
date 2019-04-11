@@ -9,11 +9,12 @@ Its easy to setup `crayon-cli` in your environments by following steps below:
 ``` sh
 git clone git@github.com:shawnscode/crayon-tools.git && make
 ```
+For windows, you will need use administration console.
 
 ### Workspace
 
 We are using a simple `workspace.toml` file to configurate the workspace settings. Here is a minimal version of it:
-cmd /K "assimp.exe" --version
+
 ```toml
 [assets]
 source = 'assets' # the path to assets folder..

@@ -43,12 +43,10 @@ ifeq ($(SYSTEM),Windows)
 	$(shell mkdir $(DESTDIR)\$(PACKAGE))
 	$(shell mkdir $(DESTDIR)\$(PACKAGE)\utilities)
 	$(shell Xcopy /Y $(ASSIMP) $(DESTDIR)\$(PACKAGE)\utilities )
-	$(shell copy $(CRUNCH) $(DESTDIR)\$(PACKAGE)\utilities\crunch )
+	$(shell Xcopy /Y $(CRUNCH) $(DESTDIR)\$(PACKAGE)\utilities )
 	$(shell copy $(PVRTEX) $(DESTDIR)\$(PACKAGE)\utilities\PVRTexToolCLI )
 	$(shell copy target\release\crayon-cli.exe $(DESTDIR)\$(PACKAGE)\crayon-cli.exe )
-	$(shell SET PATH=$(shell chdir)\$(DESTDIR)\$(PACKAGE);$(PATH))
-	#$(eval export PATH= $(shell chdir)\$(DESTDIR)\$(PACKAGE);$(PATH))
-	#@echo $(PATH)
+	$(shell  cmd /k "mklink C:\Users\admin\.cargo\bin\crayon-cli.exe $(shell chdir)\$(DESTDIR)\$(PACKAGE)\crayon-cli.exe")
 else
 	mkdir -p $(DESTDIR)/$(PACKAGE)
 	mkdir -p $(DESTDIR)/$(PACKAGE)/utilities
@@ -62,5 +60,10 @@ build:
 	cargo --color always build --release
 
 uninstall:
+ifeq ($(SYSTEM),Windows)
+	$(shell rmdir $(DESTDIR)\$(PACKAGE) /S /Q)
+	del C:\Users\admin\.cargo\bin\crayon-cli.exe
+else
 	rm -rf $(DESTDIR)/$(PACKAGE)
 	rm -f $(SYSMBOL_PATH)/crayon-cli
+endif
