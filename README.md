@@ -9,6 +9,7 @@ Its easy to setup `crayon-cli` in your environments by following steps below:
 ``` sh
 git clone git@github.com:shawnscode/crayon-tools.git && make
 ```
+For windows, you will need use administration console.
 
 ### Workspace
 
